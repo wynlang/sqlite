@@ -1,0 +1,20 @@
+// sqlite — Embedded database for Wyn
+// No system dependency — SQLite is bundled as source.
+//
+// Usage:
+//   var db = Db.open("myapp.db")
+//   Db.exec(db, "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT)")
+//   Db.exec_p(db, "INSERT INTO users (name) VALUES (?)", ["Alice"])
+//   var result = Db.query(db, "SELECT name FROM users")
+//   Db.close(db)
+//
+// The Db.* API is built into the Wyn runtime.
+// This package provides the SQLite C library that it links against.
+// Install: wyn pkg install github.com/wynlang/sqlite
+
+fn main() -> int {
+    println("sqlite package — embedded database for Wyn")
+    println("Version: 3.47.2")
+    println("Usage: Db.open(), Db.exec(), Db.query(), Db.close()")
+    return 0
+}

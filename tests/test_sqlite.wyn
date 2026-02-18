@@ -1,0 +1,31 @@
+fn main() -> int {
+    Test.init("SQLite Package")
+
+    var db = Db.open("/tmp/wyn_sqlite_pkg_test.db")
+    Db.exec(db, "CREATE TABLE IF NOT EXISTS t (id INTEGER PRIMARY KEY, val TEXT)")
+    Db.exec(db, "DELETE FROM t")
+
+    // Insert
+    Db.exec_p(db, "INSERT INTO t (val) VALUES (?)", ["hello"])
+    Db.exec_p(db, "INSERT INTO t (val) VALUES (?)", ["world"])
+    var count = Db.query(db, "SELECT COUNT(*) FROM t")
+    Test.assert_eq_str(count, "2", "insert count")
+
+    // Query
+    var val = Db.query(db, "SELECT val FROM t WHERE id = 1")
+    Test.assert_eq_str(val, "hello", "query by id")
+
+    // SQL injection safe
+    Db.exec_p(db, "INSERT INTO t (val) VALUES (?)", ["'; DROP TABLE t; --"])
+    var count2 = Db.query(db, "SELECT COUNT(*) FROM t")
+    Test.assert_eq_str(count2, "3", "injection safe")
+
+    // Delete
+    Db.exec(db, "DELETE FROM t WHERE id = 1")
+    var count3 = Db.query(db, "SELECT COUNT(*) FROM t")
+    Test.assert_eq_str(count3, "2", "delete")
+
+    Db.close(db)
+    Test.summary()
+    return 0
+}
