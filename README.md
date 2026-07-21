@@ -1,4 +1,4 @@
-# sqlite — Embedded Database for Wyn
+# sqlite - Embedded Database for Wyn
 
 SQLite 3.47.2 embedded database. No system install needed.
 
@@ -25,7 +25,7 @@ Db.close(db)
 
 This package contains `sqlite3.c` and `sqlite3.h` (the SQLite amalgamation). When you `wyn pkg install` it, these files go into your project's `packages/sqlite/src/`. The Wyn compiler detects them and compiles SQLite into your binary automatically.
 
-No `.wyn` wrapper file is needed — the `Db.*` API is part of the Wyn standard library. This package just provides the C implementation behind it.
+No `.wyn` wrapper file is needed - the `Db.*` API is part of the Wyn standard library. This package just provides the C implementation behind it.
 
 ## API
 
